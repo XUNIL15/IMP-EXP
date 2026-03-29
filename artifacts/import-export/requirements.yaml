@@ -1,0 +1,21 @@
+packages:
+  "recharts": "Pour les graphiques du tableau de bord"
+  "lucide-react": "Pour les icônes de l'interface"
+  "date-fns": "Pour le formatage et la manipulation des dates"
+  "react-hook-form": "Pour la gestion des formulaires"
+  "@hookform/resolvers": "Pour la validation Zod avec react-hook-form"
+  "zod": "Pour la validation des données"
+  "clsx": "Utilitaire pour les classes CSS conditionnelles"
+  "tailwind-merge": "Utilitaire pour fusionner les classes Tailwind"
+  "jspdf": "Pour l'export PDF du bilan journalier"
+  "jspdf-autotable": "Pour les tableaux dans l'export PDF"
+  "papaparse": "Pour l'export CSV du bilan journalier"
+  "sonner": "Pour les notifications toast"
+
+images: []
+
+notes:
+  - "Les hooks React Query sont importés depuis @workspace/api-client-react comme requis."
+  - "Le backend génère le codeColisComplet."
+  - "Utilisation exclusive d'icônes SVG (Lucide), aucun emoji."
+  - "Thème corporatif bleu/gris/blanc avec Google Fonts (Plus Jakarta Sans & Inter)."
