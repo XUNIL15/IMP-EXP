@@ -11,4 +11,5 @@ import type { ColisProprietaire } from "./colisProprietaire";
 export type ColisDetail = Colis & {
   proprietaires: ColisProprietaire[];
   arrivageDate: Date;
+  arrivageCode: string;
 };

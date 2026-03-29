@@ -9,6 +9,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: transitaires
+    description: Freight forwarder management
   - name: clients
     description: Client management
   - name: arrivages
@@ -33,6 +35,76 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /transitaires:
+    get:
+      operationId: listTransitaires
+      tags: [transitaires]
+      summary: List all freight forwarders
+      responses:
+        "200":
+          description: List of freight forwarders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transitaire"
+    post:
+      operationId: createTransitaire
+      tags: [transitaires]
+      summary: Create a new freight forwarder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTransitaireRequest"
+      responses:
+        "201":
+          description: Freight forwarder created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transitaire"
+
+  /transitaires/{id}:
+    put:
+      operationId: updateTransitaire
+      tags: [transitaires]
+      summary: Update a freight forwarder
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTransitaireRequest"
+      responses:
+        "200":
+          description: Updated freight forwarder
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transitaire"
+    delete:
+      operationId: deleteTransitaire
+      tags: [transitaires]
+      summary: Delete a freight forwarder
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
 
   /clients:
     get:
@@ -200,7 +272,7 @@ paths:
     get:
       operationId: getArrivage
       tags: [arrivages]
-      summary: Get shipment by ID
+      summary: Get shipment by ID with its packages
       parameters:
         - name: id
           in: path
@@ -209,7 +281,7 @@ paths:
             type: integer
       responses:
         "200":
-          description: Shipment
+          description: Shipment with packages
           content:
             application/json:
               schema:
@@ -486,6 +558,41 @@ components:
       required:
         - error
 
+    Transitaire:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom:
+          type: string
+        code:
+          type: string
+        contact:
+          type: string
+          nullable: true
+        dateCreation:
+          type: string
+          format: date-time
+      required:
+        - id
+        - nom
+        - code
+        - dateCreation
+
+    CreateTransitaireRequest:
+      type: object
+      properties:
+        nom:
+          type: string
+        code:
+          type: string
+        contact:
+          type: string
+          nullable: true
+      required:
+        - nom
+        - code
+
     Client:
       type: object
       properties:
@@ -535,6 +642,14 @@ components:
       properties:
         id:
           type: integer
+        codeArrivage:
+          type: string
+        transitaireId:
+          type: integer
+        transitaireNom:
+          type: string
+        transitaireCode:
+          type: string
         dateArrivee:
           type: string
           format: date
@@ -549,6 +664,10 @@ components:
           format: date-time
       required:
         - id
+        - codeArrivage
+        - transitaireId
+        - transitaireNom
+        - transitaireCode
         - dateArrivee
         - nbColisTotal
         - poidsTotal
@@ -570,6 +689,8 @@ components:
     CreateArrivageRequest:
       type: object
       properties:
+        transitaireId:
+          type: integer
         dateArrivee:
           type: string
           format: date
@@ -580,6 +701,7 @@ components:
         coutTotal:
           type: number
       required:
+        - transitaireId
         - dateArrivee
         - nbColisTotal
         - poidsTotal
@@ -660,9 +782,12 @@ components:
             arrivageDate:
               type: string
               format: date
+            arrivageCode:
+              type: string
           required:
             - proprietaires
             - arrivageDate
+            - arrivageCode
 
     CreateColisProprietaireRequest:
       type: object

@@ -13,6 +13,20 @@ export interface ErrorResponse {
   error: string;
 }
 
+export interface Transitaire {
+  id: number;
+  nom: string;
+  code: string;
+  contact?: string | null;
+  dateCreation: string;
+}
+
+export interface CreateTransitaireRequest {
+  nom: string;
+  code: string;
+  contact?: string | null;
+}
+
 export interface Client {
   id: number;
   nom: string;
@@ -32,6 +46,10 @@ export interface CreateClientRequest {
 
 export interface Arrivage {
   id: number;
+  codeArrivage: string;
+  transitaireId: number;
+  transitaireNom: string;
+  transitaireCode: string;
   dateArrivee: string;
   nbColisTotal: number;
   poidsTotal: number;
@@ -72,6 +90,7 @@ export interface ColisProprietaire {
 export type ColisDetail = Colis & {
   proprietaires: ColisProprietaire[];
   arrivageDate: string;
+  arrivageCode: string;
 };
 
 export type ArrivageDetail = Arrivage & {
@@ -79,6 +98,7 @@ export type ArrivageDetail = Arrivage & {
 };
 
 export interface CreateArrivageRequest {
+  transitaireId: number;
   dateArrivee: string;
   nbColisTotal: number;
   poidsTotal: number;

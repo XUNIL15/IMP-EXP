@@ -7,6 +7,7 @@
  */
 
 export interface CreateArrivageRequest {
+  transitaireId: number;
   dateArrivee: Date;
   nbColisTotal: number;
   poidsTotal: number;

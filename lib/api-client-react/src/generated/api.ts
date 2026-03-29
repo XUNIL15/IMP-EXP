@@ -26,6 +26,7 @@ import type {
   CreateClientRequest,
   CreateColisRequest,
   CreatePaiementRequest,
+  CreateTransitaireRequest,
   DashboardData,
   DetteDetail,
   ErrorResponse,
@@ -38,6 +39,7 @@ import type {
   ListDettesParams,
   Paiement,
   PaiementDetail,
+  Transitaire,
 } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
@@ -123,6 +125,338 @@ export function useHealthCheck<
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+/**
+ * @summary List all freight forwarders
+ */
+export const getListTransitairesUrl = () => {
+  return `/api/transitaires`;
+};
+
+export const listTransitaires = async (
+  options?: RequestInit,
+): Promise<Transitaire[]> => {
+  return customFetch<Transitaire[]>(getListTransitairesUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getListTransitairesQueryKey = () => {
+  return [`/api/transitaires`] as const;
+};
+
+export const getListTransitairesQueryOptions = <
+  TData = Awaited<ReturnType<typeof listTransitaires>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof listTransitaires>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getListTransitairesQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof listTransitaires>>
+  > = ({ signal }) => listTransitaires({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof listTransitaires>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type ListTransitairesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listTransitaires>>
+>;
+export type ListTransitairesQueryError = ErrorType<unknown>;
+
+/**
+ * @summary List all freight forwarders
+ */
+
+export function useListTransitaires<
+  TData = Awaited<ReturnType<typeof listTransitaires>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof listTransitaires>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getListTransitairesQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Create a new freight forwarder
+ */
+export const getCreateTransitaireUrl = () => {
+  return `/api/transitaires`;
+};
+
+export const createTransitaire = async (
+  createTransitaireRequest: CreateTransitaireRequest,
+  options?: RequestInit,
+): Promise<Transitaire> => {
+  return customFetch<Transitaire>(getCreateTransitaireUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(createTransitaireRequest),
+  });
+};
+
+export const getCreateTransitaireMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createTransitaire>>,
+    TError,
+    { data: BodyType<CreateTransitaireRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof createTransitaire>>,
+  TError,
+  { data: BodyType<CreateTransitaireRequest> },
+  TContext
+> => {
+  const mutationKey = ["createTransitaire"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof createTransitaire>>,
+    { data: BodyType<CreateTransitaireRequest> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createTransitaire(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateTransitaireMutationResult = NonNullable<
+  Awaited<ReturnType<typeof createTransitaire>>
+>;
+export type CreateTransitaireMutationBody = BodyType<CreateTransitaireRequest>;
+export type CreateTransitaireMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Create a new freight forwarder
+ */
+export const useCreateTransitaire = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createTransitaire>>,
+    TError,
+    { data: BodyType<CreateTransitaireRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof createTransitaire>>,
+  TError,
+  { data: BodyType<CreateTransitaireRequest> },
+  TContext
+> => {
+  return useMutation(getCreateTransitaireMutationOptions(options));
+};
+
+/**
+ * @summary Update a freight forwarder
+ */
+export const getUpdateTransitaireUrl = (id: number) => {
+  return `/api/transitaires/${id}`;
+};
+
+export const updateTransitaire = async (
+  id: number,
+  createTransitaireRequest: CreateTransitaireRequest,
+  options?: RequestInit,
+): Promise<Transitaire> => {
+  return customFetch<Transitaire>(getUpdateTransitaireUrl(id), {
+    ...options,
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(createTransitaireRequest),
+  });
+};
+
+export const getUpdateTransitaireMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateTransitaire>>,
+    TError,
+    { id: number; data: BodyType<CreateTransitaireRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof updateTransitaire>>,
+  TError,
+  { id: number; data: BodyType<CreateTransitaireRequest> },
+  TContext
+> => {
+  const mutationKey = ["updateTransitaire"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof updateTransitaire>>,
+    { id: number; data: BodyType<CreateTransitaireRequest> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return updateTransitaire(id, data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UpdateTransitaireMutationResult = NonNullable<
+  Awaited<ReturnType<typeof updateTransitaire>>
+>;
+export type UpdateTransitaireMutationBody = BodyType<CreateTransitaireRequest>;
+export type UpdateTransitaireMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Update a freight forwarder
+ */
+export const useUpdateTransitaire = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateTransitaire>>,
+    TError,
+    { id: number; data: BodyType<CreateTransitaireRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof updateTransitaire>>,
+  TError,
+  { id: number; data: BodyType<CreateTransitaireRequest> },
+  TContext
+> => {
+  return useMutation(getUpdateTransitaireMutationOptions(options));
+};
+
+/**
+ * @summary Delete a freight forwarder
+ */
+export const getDeleteTransitaireUrl = (id: number) => {
+  return `/api/transitaires/${id}`;
+};
+
+export const deleteTransitaire = async (
+  id: number,
+  options?: RequestInit,
+): Promise<void> => {
+  return customFetch<void>(getDeleteTransitaireUrl(id), {
+    ...options,
+    method: "DELETE",
+  });
+};
+
+export const getDeleteTransitaireMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteTransitaire>>,
+    TError,
+    { id: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteTransitaire>>,
+  TError,
+  { id: number },
+  TContext
+> => {
+  const mutationKey = ["deleteTransitaire"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteTransitaire>>,
+    { id: number }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return deleteTransitaire(id, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeleteTransitaireMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteTransitaire>>
+>;
+
+export type DeleteTransitaireMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Delete a freight forwarder
+ */
+export const useDeleteTransitaire = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteTransitaire>>,
+    TError,
+    { id: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteTransitaire>>,
+  TError,
+  { id: number },
+  TContext
+> => {
+  return useMutation(getDeleteTransitaireMutationOptions(options));
+};
 
 /**
  * @summary List all clients
@@ -828,7 +1162,7 @@ export const useCreateArrivage = <
 };
 
 /**
- * @summary Get shipment by ID
+ * @summary Get shipment by ID with its packages
  */
 export const getGetArrivageUrl = (id: number) => {
   return `/api/arrivages/${id}`;
@@ -888,7 +1222,7 @@ export type GetArrivageQueryResult = NonNullable<
 export type GetArrivageQueryError = ErrorType<ErrorResponse>;
 
 /**
- * @summary Get shipment by ID
+ * @summary Get shipment by ID with its packages
  */
 
 export function useGetArrivage<

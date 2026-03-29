@@ -15,6 +15,55 @@ export const HealthCheckResponse = zod.object({
 });
 
 /**
+ * @summary List all freight forwarders
+ */
+export const ListTransitairesResponseItem = zod.object({
+  id: zod.number(),
+  nom: zod.string(),
+  code: zod.string(),
+  contact: zod.string().nullish(),
+  dateCreation: zod.coerce.date(),
+});
+export const ListTransitairesResponse = zod.array(ListTransitairesResponseItem);
+
+/**
+ * @summary Create a new freight forwarder
+ */
+export const CreateTransitaireBody = zod.object({
+  nom: zod.string(),
+  code: zod.string(),
+  contact: zod.string().nullish(),
+});
+
+/**
+ * @summary Update a freight forwarder
+ */
+export const UpdateTransitaireParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const UpdateTransitaireBody = zod.object({
+  nom: zod.string(),
+  code: zod.string(),
+  contact: zod.string().nullish(),
+});
+
+export const UpdateTransitaireResponse = zod.object({
+  id: zod.number(),
+  nom: zod.string(),
+  code: zod.string(),
+  contact: zod.string().nullish(),
+  dateCreation: zod.coerce.date(),
+});
+
+/**
+ * @summary Delete a freight forwarder
+ */
+export const DeleteTransitaireParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
  * @summary List all clients
  */
 export const ListClientsQueryParams = zod.object({
@@ -121,6 +170,10 @@ export const ListArrivagesQueryParams = zod.object({
 
 export const ListArrivagesResponseItem = zod.object({
   id: zod.number(),
+  codeArrivage: zod.string(),
+  transitaireId: zod.number(),
+  transitaireNom: zod.string(),
+  transitaireCode: zod.string(),
   dateArrivee: zod.coerce.date(),
   nbColisTotal: zod.number(),
   poidsTotal: zod.number(),
@@ -133,6 +186,7 @@ export const ListArrivagesResponse = zod.array(ListArrivagesResponseItem);
  * @summary Create a new shipment
  */
 export const CreateArrivageBody = zod.object({
+  transitaireId: zod.number(),
   dateArrivee: zod.coerce.date(),
   nbColisTotal: zod.number(),
   poidsTotal: zod.number(),
@@ -140,7 +194,7 @@ export const CreateArrivageBody = zod.object({
 });
 
 /**
- * @summary Get shipment by ID
+ * @summary Get shipment by ID with its packages
  */
 export const GetArrivageParams = zod.object({
   id: zod.coerce.number(),
@@ -149,6 +203,10 @@ export const GetArrivageParams = zod.object({
 export const GetArrivageResponse = zod
   .object({
     id: zod.number(),
+    codeArrivage: zod.string(),
+    transitaireId: zod.number(),
+    transitaireNom: zod.string(),
+    transitaireCode: zod.string(),
     dateArrivee: zod.coerce.date(),
     nbColisTotal: zod.number(),
     poidsTotal: zod.number(),
@@ -185,6 +243,7 @@ export const GetArrivageResponse = zod
                 }),
               ),
               arrivageDate: zod.coerce.date(),
+              arrivageCode: zod.string(),
             }),
           ),
       ),
@@ -199,6 +258,7 @@ export const UpdateArrivageParams = zod.object({
 });
 
 export const UpdateArrivageBody = zod.object({
+  transitaireId: zod.number(),
   dateArrivee: zod.coerce.date(),
   nbColisTotal: zod.number(),
   poidsTotal: zod.number(),
@@ -207,6 +267,10 @@ export const UpdateArrivageBody = zod.object({
 
 export const UpdateArrivageResponse = zod.object({
   id: zod.number(),
+  codeArrivage: zod.string(),
+  transitaireId: zod.number(),
+  transitaireNom: zod.string(),
+  transitaireCode: zod.string(),
   dateArrivee: zod.coerce.date(),
   nbColisTotal: zod.number(),
   poidsTotal: zod.number(),
@@ -259,6 +323,7 @@ export const ListColisResponseItem = zod
         }),
       ),
       arrivageDate: zod.coerce.date(),
+      arrivageCode: zod.string(),
     }),
   );
 export const ListColisResponse = zod.array(ListColisResponseItem);
@@ -316,6 +381,7 @@ export const GetColisResponse = zod
         }),
       ),
       arrivageDate: zod.coerce.date(),
+      arrivageCode: zod.string(),
     }),
   );
 
@@ -369,6 +435,7 @@ export const UpdateColisResponse = zod
         }),
       ),
       arrivageDate: zod.coerce.date(),
+      arrivageCode: zod.string(),
     }),
   );
 
@@ -503,6 +570,7 @@ export const GetBilanJournalierResponse = zod.object({
             }),
           ),
           arrivageDate: zod.coerce.date(),
+          arrivageCode: zod.string(),
         }),
       ),
   ),

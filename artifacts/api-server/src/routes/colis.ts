@@ -3,19 +3,19 @@ import { db } from "@workspace/db";
 import {
   colisTable, colisProprietairesTable, clientsTable, arrivagesTable
 } from "@workspace/db/schema";
-import { eq, and, gte, lte, sql } from "drizzle-orm";
+import { eq, and, gte, lte } from "drizzle-orm";
 
 const router: IRouter = Router();
 
-function formatDate(dateStr: string): string {
+function formatDateCode(dateStr: string): string {
   const d = new Date(dateStr);
-  const dd = String(d.getDate()).padStart(2, "0");
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const yy = String(d.getFullYear()).slice(-2);
+  const dd = String(d.getUTCDate()).padStart(2, "0");
+  const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const yy = String(d.getUTCFullYear()).slice(-2);
   return `${dd}${mm}${yy}`;
 }
 
-async function getColisWithProprietaires(colisId: number, arrivageDate: string) {
+async function getColisWithProprietaires(colisId: number, arrivageDate: string, arrivageCode: string) {
   const [colis] = await db.select().from(colisTable).where(eq(colisTable.id, colisId));
   if (!colis) return null;
 
@@ -40,6 +40,7 @@ async function getColisWithProprietaires(colisId: number, arrivageDate: string) 
     poids: parseFloat(colis.poids),
     montant: parseFloat(colis.montant),
     arrivageDate,
+    arrivageCode,
     proprietaires: proprietaires.map(p => ({
       ...p,
       poids: parseFloat(p.poids),
@@ -54,7 +55,13 @@ router.get("/colis", async (req, res) => {
   try {
     const { arrivageId, clientId, type, dateDebut, dateFin } = req.query;
 
-    let query = db
+    const conditions: any[] = [];
+    if (arrivageId) conditions.push(eq(colisTable.arrivageId, parseInt(arrivageId as string)));
+    if (type) conditions.push(eq(colisTable.type, type as "individuel" | "mixte"));
+    if (dateDebut) conditions.push(gte(arrivagesTable.dateArrivee, dateDebut as string));
+    if (dateFin) conditions.push(lte(arrivagesTable.dateArrivee, dateFin as string));
+
+    const colisList = await db
       .select({
         id: colisTable.id,
         arrivageId: colisTable.arrivageId,
@@ -65,17 +72,12 @@ router.get("/colis", async (req, res) => {
         montant: colisTable.montant,
         dateCreation: colisTable.dateCreation,
         arrivageDate: arrivagesTable.dateArrivee,
+        arrivageCode: arrivagesTable.codeArrivage,
       })
       .from(colisTable)
-      .innerJoin(arrivagesTable, eq(colisTable.arrivageId, arrivagesTable.id));
-
-    const conditions: any[] = [];
-    if (arrivageId) conditions.push(eq(colisTable.arrivageId, parseInt(arrivageId as string)));
-    if (type) conditions.push(eq(colisTable.type, type as "individuel" | "mixte"));
-    if (dateDebut) conditions.push(gte(arrivagesTable.dateArrivee, dateDebut as string));
-    if (dateFin) conditions.push(lte(arrivagesTable.dateArrivee, dateFin as string));
-
-    const colisList = await query.where(conditions.length > 0 ? and(...conditions) : undefined).orderBy(arrivagesTable.dateArrivee);
+      .innerJoin(arrivagesTable, eq(colisTable.arrivageId, arrivagesTable.id))
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
+      .orderBy(arrivagesTable.dateArrivee);
 
     let filtered = colisList;
     if (clientId) {
@@ -134,19 +136,12 @@ router.post("/colis", async (req, res) => {
     const [arrivage] = await db.select().from(arrivagesTable).where(eq(arrivagesTable.id, arrivageId));
     if (!arrivage) return res.status(404).json({ error: "Arrivage non trouvé" });
 
-    const dateSuffix = formatDate(arrivage.dateArrivee);
+    const dateSuffix = formatDateCode(arrivage.dateArrivee);
     const codeColisComplet = `${codeColisReel}_${dateSuffix}`;
 
     const [colis] = await db
       .insert(colisTable)
-      .values({
-        arrivageId,
-        codeColisReel,
-        codeColisComplet,
-        type,
-        poids: String(poids),
-        montant: String(montant),
-      })
+      .values({ arrivageId, codeColisReel, codeColisComplet, type, poids: String(poids), montant: String(montant) })
       .returning();
 
     if (proprietaires && proprietaires.length > 0) {
@@ -162,7 +157,7 @@ router.post("/colis", async (req, res) => {
       );
     }
 
-    const result = await getColisWithProprietaires(colis.id, arrivage.dateArrivee);
+    const result = await getColisWithProprietaires(colis.id, arrivage.dateArrivee, arrivage.codeArrivage);
     res.status(201).json(result);
   } catch (err) {
     req.log.error(err);
@@ -173,15 +168,18 @@ router.post("/colis", async (req, res) => {
 router.get("/colis/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const [colisWithArrivage] = await db
-      .select({ arrivageDate: arrivagesTable.dateArrivee })
+    const [row] = await db
+      .select({
+        arrivageDate: arrivagesTable.dateArrivee,
+        arrivageCode: arrivagesTable.codeArrivage,
+      })
       .from(colisTable)
       .innerJoin(arrivagesTable, eq(colisTable.arrivageId, arrivagesTable.id))
       .where(eq(colisTable.id, id));
 
-    if (!colisWithArrivage) return res.status(404).json({ error: "Colis non trouvé" });
+    if (!row) return res.status(404).json({ error: "Colis non trouvé" });
 
-    const result = await getColisWithProprietaires(id, colisWithArrivage.arrivageDate);
+    const result = await getColisWithProprietaires(id, row.arrivageDate, row.arrivageCode);
     res.json(result);
   } catch (err) {
     req.log.error(err);
@@ -197,7 +195,7 @@ router.put("/colis/:id", async (req, res) => {
     const [arrivage] = await db.select().from(arrivagesTable).where(eq(arrivagesTable.id, arrivageId));
     if (!arrivage) return res.status(404).json({ error: "Arrivage non trouvé" });
 
-    const dateSuffix = formatDate(arrivage.dateArrivee);
+    const dateSuffix = formatDateCode(arrivage.dateArrivee);
     const codeColisComplet = `${codeColisReel}_${dateSuffix}`;
 
     const [colis] = await db
@@ -223,7 +221,7 @@ router.put("/colis/:id", async (req, res) => {
       );
     }
 
-    const result = await getColisWithProprietaires(id, arrivage.dateArrivee);
+    const result = await getColisWithProprietaires(id, arrivage.dateArrivee, arrivage.codeArrivage);
     res.json(result);
   } catch (err) {
     req.log.error(err);

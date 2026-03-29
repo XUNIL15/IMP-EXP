@@ -8,6 +8,10 @@
 
 export interface Arrivage {
   id: number;
+  codeArrivage: string;
+  transitaireId: number;
+  transitaireNom: string;
+  transitaireCode: string;
   dateArrivee: Date;
   nbColisTotal: number;
   poidsTotal: number;

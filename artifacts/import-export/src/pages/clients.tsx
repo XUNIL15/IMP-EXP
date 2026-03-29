@@ -3,7 +3,7 @@ import { useListClients, useCreateClient, useDeleteClient, useGetClientPaiements
 import { useQueryClient } from "@tanstack/react-query";
 import { getListClientsQueryKey } from "@workspace/api-client-react";
 import { Button, Input, Modal, Label, Table, TableHeader, TableRow, TableHead, TableBody, TableCell, Card, Badge } from "@/components/ui";
-import { formatFCFA, formatDate } from "@/lib/utils";
+import { cn, formatFCFA, formatDate } from "@/lib/utils";
 import { Plus, Trash2, Loader2, Search, History, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
