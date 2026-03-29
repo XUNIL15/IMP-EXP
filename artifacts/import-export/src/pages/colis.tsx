@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useListColis, useCreateColis, useDeleteColis, useListArrivages, useListClients } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getListColisQueryKey } from "@workspace/api-client-react";
 import { Button, Input, Select, Modal, Label, Table, TableHeader, TableRow, TableHead, TableBody, TableCell, Card, Badge } from "@/components/ui";
 import { formatFCFA, formatWeight, formatDate } from "@/lib/utils";
-import { Plus, Trash2, Loader2, Users, Search, Filter } from "lucide-react";
+import { Plus, Trash2, Loader2, Users, Search, X } from "lucide-react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -55,10 +55,12 @@ export default function Colis() {
   const poidsWatch = watch("poids");
 
   // Auto-fill pour colis individuel
-  if (typeWatch === "individuel" && fields.length > 0) {
-    if (watch("proprietaires.0.poids") !== poidsWatch) setValue("proprietaires.0.poids", poidsWatch || 0);
-    if (watch("proprietaires.0.montantDu") !== montantWatch) setValue("proprietaires.0.montantDu", montantWatch || 0);
-  }
+  useEffect(() => {
+    if (typeWatch === "individuel" && fields.length > 0) {
+      setValue("proprietaires.0.poids", poidsWatch || 0);
+      setValue("proprietaires.0.montantDu", montantWatch || 0);
+    }
+  }, [typeWatch, poidsWatch, montantWatch]);
 
   const onSubmit = (data: ColisForm) => {
     createMutation.mutate({ data }, {
