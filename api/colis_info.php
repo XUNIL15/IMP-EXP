@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/config.php';
+requireAuth();
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 

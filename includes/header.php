@@ -1,4 +1,7 @@
-<?php require_once __DIR__ . '/config.php'; ?>
+<?php
+require_once __DIR__ . '/config.php';
+requireAuth();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
