@@ -2,7 +2,8 @@
 // ============================================================
 // CONFIGURATION DE LA BASE DE DONNEES
 // ============================================================
-define('DB_HOST', 'localhost');
+define('DB_HOST', '127.0.0.1');
+define('DB_PORT', '3306');
 define('DB_NAME', 'import_export');
 define('DB_USER', 'root');
 define('DB_PASS', '');
@@ -18,7 +19,7 @@ define('DEVISE_DEFAULT', 'FCFA');
 function getDB(): PDO {
     static $pdo = null;
     if ($pdo === null) {
-        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
+        $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
