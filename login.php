@@ -36,6 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+$loginBg = 'images/login-bg.jpg';
+$hasBg   = file_exists($loginBg);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -49,99 +52,103 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            display: flex;
             min-height: 100vh;
-            background: #f5f0e8;
+            display: flex;
+            background: #f7f3ec;
         }
 
-        /* ── LEFT PANEL ─────────────────────────────────────── */
-        .login-left {
-            flex: 0 0 480px;
+        /* ── LEFT PANEL ── */
+        .lp-left {
+            flex: 0 0 50%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 40px 52px;
-            background: linear-gradient(160deg, #fdf6e3 0%, #f5ead0 60%, #ede0c4 100%);
-            min-height: 100vh;
+            padding: 36px 56px 36px 52px;
+            background: linear-gradient(150deg, #fffdf7 0%, #fdf5e0 50%, #f7ecce 100%);
+            position: relative;
         }
 
-        .login-brand {
-            font-size: 17px;
+        /* Brand pill */
+        .lp-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid #1a1a1a;
+            border-radius: 50px;
+            padding: 7px 20px;
+            font-size: 15px;
             font-weight: 700;
-            color: #2d2d2d;
-            border: 2px solid #2d2d2d;
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
-            letter-spacing: .3px;
+            color: #1a1a1a;
             width: fit-content;
+            letter-spacing: .1px;
         }
 
-        .login-brand span { color: #c8a84b; }
+        .lp-brand i { font-size: 16px; color: #c9a84c; }
 
-        .login-form-area {
+        /* Form area */
+        .lp-form-area {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 0 20px;
+            padding-bottom: 24px;
+            max-width: 380px;
         }
 
-        .login-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 6px;
+        .lp-title {
+            font-size: 30px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 8px;
+            line-height: 1.2;
         }
 
-        .login-subtitle {
+        .lp-subtitle {
             font-size: 14px;
-            color: #7a7163;
-            margin-bottom: 36px;
+            color: #9a8e7e;
+            margin-bottom: 38px;
+            line-height: 1.5;
         }
 
-        .field-label {
+        /* Field */
+        .lp-field { margin-bottom: 20px; }
+
+        .lp-label {
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: #9a8f80;
-            text-transform: uppercase;
-            letter-spacing: .6px;
-            margin-bottom: 8px;
+            color: #aea197;
+            margin-bottom: 7px;
+            letter-spacing: .3px;
         }
 
-        .field-wrap {
-            margin-bottom: 22px;
-        }
-
-        .field-input {
+        .lp-input {
             width: 100%;
             padding: 14px 18px;
             background: #fff;
-            border: none;
-            border-radius: 12px;
+            border: 1.5px solid transparent;
+            border-radius: 14px;
             font-size: 14px;
-            color: #1a1a1a;
             font-family: inherit;
-            box-shadow: 0 2px 8px rgba(0,0,0,.06);
-            transition: box-shadow .2s;
+            color: #1a1a1a;
+            box-shadow: 0 2px 10px rgba(0,0,0,.07);
+            transition: border-color .2s, box-shadow .2s;
             outline: none;
         }
 
-        .field-input:focus {
-            box-shadow: 0 0 0 3px rgba(200,168,75,.35), 0 2px 8px rgba(0,0,0,.06);
+        .lp-input::placeholder { color: #c8bfb3; }
+
+        .lp-input:focus {
+            border-color: #e8c040;
+            box-shadow: 0 0 0 3px rgba(232,192,64,.2), 0 2px 10px rgba(0,0,0,.07);
         }
 
-        .field-input::placeholder { color: #b8ae9f; }
+        /* Password toggle */
+        .lp-pwd-wrap { position: relative; }
 
-        .pwd-wrap {
-            position: relative;
-        }
+        .lp-pwd-wrap .lp-input { padding-right: 48px; }
 
-        .pwd-wrap .field-input {
-            padding-right: 48px;
-        }
-
-        .pwd-toggle {
+        .lp-pwd-toggle {
             position: absolute;
             right: 14px;
             top: 50%;
@@ -149,162 +156,237 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background: none;
             border: none;
             cursor: pointer;
-            color: #b0a595;
+            color: #bdb3a8;
             font-size: 15px;
-            padding: 4px;
             transition: color .15s;
+            padding: 4px;
         }
 
-        .pwd-toggle:hover { color: #7a6a55; }
+        .lp-pwd-toggle:hover { color: #7a6a55; }
 
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background: #e8c040;
-            border: none;
+        /* Error */
+        .lp-error {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
             border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        /* Submit button */
+        .lp-submit {
+            width: 100%;
+            padding: 16px;
+            background: #e9c13d;
+            border: none;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 700;
             color: #1a1a1a;
             cursor: pointer;
-            margin-top: 8px;
-            transition: background .2s, transform .1s;
+            margin-top: 6px;
             letter-spacing: .2px;
+            transition: background .2s, transform .1s, box-shadow .2s;
+            box-shadow: 0 4px 16px rgba(233,193,61,.35);
         }
 
-        .btn-submit:hover { background: #d4ad2e; }
-        .btn-submit:active { transform: scale(.98); }
+        .lp-submit:hover {
+            background: #d4ac2a;
+            box-shadow: 0 6px 20px rgba(233,193,61,.45);
+        }
 
-        .error-msg {
-            background: #fee2e2;
-            color: #b91c1c;
-            border: 1px solid #fecaca;
-            border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 13px;
-            margin-bottom: 20px;
+        .lp-submit:active { transform: scale(.98); }
+
+        /* Divider */
+        .lp-divider {
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .login-footer-link {
-            text-align: center;
-            margin-top: 28px;
+            gap: 12px;
+            margin: 20px 0;
+            color: #c5b9ac;
             font-size: 12px;
-            color: #9a8f80;
         }
 
-        .login-footer-link a {
-            color: #c8a84b;
-            text-decoration: none;
+        .lp-divider::before,
+        .lp-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e4ddd4;
+        }
+
+        /* Social buttons */
+        .lp-socials {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .lp-social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: #fff;
+            border: 1.5px solid #e4ddd4;
+            border-radius: 14px;
+            font-size: 13px;
             font-weight: 600;
+            color: #333;
+            cursor: default;
+            box-shadow: 0 1px 4px rgba(0,0,0,.05);
         }
 
-        .login-footer-link a:hover { text-decoration: underline; }
+        .lp-social-btn .fa-apple { font-size: 16px; }
+        .lp-social-btn .google-g {
+            width: 16px; height: 16px;
+            background: url('https://www.google.com/favicon.ico') center/contain no-repeat;
+            display: inline-block;
+        }
 
-        /* ── RIGHT PANEL ─────────────────────────────────────── */
-        .login-right {
+        /* Setup link */
+        .lp-setup {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 12px;
+            color: #a89f93;
+        }
+
+        .lp-setup a {
+            color: #c9a84c;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .lp-setup a:hover { text-decoration: underline; }
+
+        /* ── RIGHT PANEL ── */
+        .lp-right {
             flex: 1;
             position: relative;
-            background: #c8b89a;
             overflow: hidden;
+            min-height: 100vh;
         }
 
-        .login-right img {
+        .lp-right img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        .login-right-placeholder {
+        .lp-right-placeholder {
             width: 100%;
             height: 100%;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #3a3028 0%, #1a1410 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #d4c0a0, #b8a484);
-            color: rgba(255,255,255,.6);
-            font-size: 15px;
-            gap: 12px;
+            gap: 16px;
+            color: rgba(255,255,255,.3);
+            font-size: 14px;
         }
 
-        .login-right-placeholder i { font-size: 48px; opacity: .5; }
+        .lp-right-placeholder i { font-size: 52px; opacity: .25; }
+        .lp-right-placeholder small {
+            font-size: 11px;
+            opacity: .5;
+            font-family: monospace;
+        }
 
-        /* ── RESPONSIVE ─────────────────────────────────────── */
-        @media (max-width: 820px) {
-            .login-right { display: none; }
-            .login-left  { flex: 1; padding: 40px 28px; }
+        /* ── RESPONSIVE ── */
+        @media (max-width: 860px) {
+            .lp-right { display: none; }
+            .lp-left  { flex: 1; padding: 32px 28px; }
+            .lp-form-area { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- LEFT: FORM PANEL -->
-    <div class="login-left">
-        <div class="login-brand">Import<span>Export</span></div>
+    <!-- ═══ LEFT: FORM ═══ -->
+    <div class="lp-left">
+        <div class="lp-brand">
+            <i class="fas fa-ship"></i>
+            Import<strong>Export</strong>
+        </div>
 
-        <div class="login-form-area">
-            <h1 class="login-title">Connexion</h1>
-            <p class="login-subtitle">Connectez-vous pour accéder au système de gestion</p>
+        <div class="lp-form-area">
+            <h1 class="lp-title">Connexion</h1>
+            <p class="lp-subtitle">Connectez-vous pour accéder<br>au système de gestion</p>
 
             <?php if ($error): ?>
-                <div class="error-msg">
+                <div class="lp-error">
                     <i class="fas fa-times-circle"></i>
                     <?= sanitize($error) ?>
                 </div>
             <?php endif; ?>
 
             <form method="post" autocomplete="on">
-                <div class="field-wrap">
-                    <label class="field-label">Email</label>
+                <div class="lp-field">
+                    <label class="lp-label">Adresse email</label>
                     <input
                         type="email"
                         name="email"
-                        class="field-input"
+                        class="lp-input"
                         value="<?= sanitize($_POST['email'] ?? '') ?>"
                         placeholder="exemple@domaine.com"
                         required autofocus autocomplete="username">
                 </div>
 
-                <div class="field-wrap">
-                    <label class="field-label">Mot de passe</label>
-                    <div class="pwd-wrap">
+                <div class="lp-field">
+                    <label class="lp-label">Mot de passe</label>
+                    <div class="lp-pwd-wrap">
                         <input
                             type="password"
                             name="mot_de_passe"
                             id="loginPwd"
-                            class="field-input"
-                            placeholder="••••••••••••"
+                            class="lp-input"
+                            placeholder="••••••••••••••••••"
                             required autocomplete="current-password">
-                        <button type="button" class="pwd-toggle" onclick="togglePwd()">
-                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        <button type="button" class="lp-pwd-toggle" onclick="togglePwd()" tabindex="-1">
+                            <i class="fas fa-eye-slash" id="eyeIcon"></i>
                         </button>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">Se connecter</button>
+                <button type="submit" class="lp-submit">Se connecter</button>
             </form>
 
-            <div class="login-footer-link">
-                Première utilisation ? <a href="setup.php">Créer le compte admin</a>
+            <div class="lp-divider">ou</div>
+
+            <div class="lp-socials">
+                <div class="lp-social-btn">
+                    <i class="fab fa-apple"></i> Apple
+                </div>
+                <div class="lp-social-btn">
+                    <span class="google-g"></span> Google
+                </div>
+            </div>
+
+            <div class="lp-setup">
+                Première installation ? <a href="setup.php">Créer le compte admin</a>
             </div>
         </div>
     </div>
 
-    <!-- RIGHT: PHOTO PANEL -->
-    <div class="login-right">
-        <?php
-        $imgFile = 'images/login-bg.jpg';
-        if (file_exists($imgFile)): ?>
-            <img src="<?= $imgFile ?>?v=<?= filemtime($imgFile) ?>" alt="Background">
+    <!-- ═══ RIGHT: PHOTO ═══ -->
+    <div class="lp-right">
+        <?php if ($hasBg): ?>
+            <img src="<?= $loginBg ?>?v=<?= filemtime($loginBg) ?>" alt="">
         <?php else: ?>
-            <div class="login-right-placeholder">
+            <div class="lp-right-placeholder">
                 <i class="fas fa-image"></i>
-                <span>Déposez votre image ici</span>
-                <small>Fichier : images/login-bg.jpg</small>
+                <span>Votre photo ici</span>
+                <small>Déposez votre image : images/login-bg.jpg</small>
             </div>
         <?php endif; ?>
     </div>
@@ -315,10 +397,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const icon  = document.getElementById('eyeIcon');
         if (input.type === 'password') {
             input.type = 'text';
-            icon.className = 'fas fa-eye-slash';
+            icon.className = 'fas fa-eye';
         } else {
             input.type = 'password';
-            icon.className = 'fas fa-eye';
+            icon.className = 'fas fa-eye-slash';
         }
     }
     </script>

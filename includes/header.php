@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config.php';
 requireAuth();
+$currentUser = getCurrentUser();
+$logoutUrl   = (isset($root) && $root === '../') ? '../logout.php' : 'logout.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -9,11 +11,8 @@ requireAuth();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($pageTitle) ? sanitize($pageTitle) . ' - ' : '' ?><?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= $root ?? '' ?>css/style.css">
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- jsPDF + autoTable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 </head>
@@ -104,6 +103,14 @@ requireAuth();
                 <i class="fas fa-calendar-day"></i>
                 <?= date('d/m/Y') ?>
             </span>
+            <div class="topbar-user">
+                <i class="fas fa-user-circle"></i>
+                <span><?= sanitize($currentUser['nom']) ?></span>
+            </div>
+            <a href="<?= $logoutUrl ?>" class="btn-logout" title="Se déconnecter">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </a>
         </div>
     </header>
 
