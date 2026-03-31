@@ -1,0 +1,212 @@
+CONTEXTE :
+
+Le projet de gestion d’import/export est déjà développé (PHP / MySQL / JS).
+Cependant, l’implémentation actuelle ne correspond pas correctement au fonctionnement réel.
+
+OBJECTIF :
+
+Refaire et corriger les modules suivants :
+
+1. ARRIVAGES
+2. PARTAGE DES COLIS (anciennement "Colis")
+
+Le système doit être SIMPLE, LOGIQUE et basé sur le fonctionnement réel du terrain.
+
+---
+
+## 1. MODULE ARRIVAGE (À CORRIGER / REFAIRE)
+
+### Objectif :
+
+Permettre d’enregistrer TOUS les arrivages d’un jour en une seule saisie.
+
+### Fonctionnement attendu :
+
+* Un arrivage contient :
+
+  * une date
+  * un transitaire
+  * plusieurs types de colis
+
+* Pour chaque transitaire :
+
+  * saisir le nombre total de colis
+  * saisir le poids total
+  * saisir tous les NUMÉROS de colis associés
+
+### IMPORTANT :
+
+* Chaque colis doit être enregistré avec :
+
+  * son identifiant (code réel)
+  * son transitaire
+  * son poids total
+  * son type (individuel ou mixte)
+
+* L’utilisateur doit pouvoir ajouter plusieurs transitaires dans un seul arrivage
+
+---
+
+## 2. MODULE PARTAGE DES COLIS (À REFAIRE COMPLÈTEMENT)
+
+### IMPORTANT :
+
+Ce module ne doit PAS recréer les colis.
+
+👉 Il doit utiliser les colis déjà créés dans le module ARRIVAGE.
+
+---
+
+### Objectif :
+
+Permettre de répartir chaque colis entre un ou plusieurs clients.
+
+---
+
+## 2.1 TYPES DE COLIS
+
+### 🔹 Colis INDIVIDUEL
+
+* Appartient à UNE seule personne
+* Saisie :
+
+  * client
+  * poids
+  * montant
+  * statut (payé / non payé)
+
+---
+
+### 🔹 Colis MIXTE
+
+* Un colis partagé entre plusieurs clients
+
+Exemple réel :
+
+Colis total = 32 kg
+Répartition :
+
+* Client 1 → 10 kg
+* Client 2 → 10 kg
+* Client 3 → 10 kg
+* Client 4 → 2 kg
+
+---
+
+### Interface attendue :
+
+Pour chaque colis :
+
+* afficher le code du colis
+* afficher le type (mixte ou individuel)
+
+---
+
+### Pour un colis mixte :
+
+Afficher une liste dynamique :
+
+| Client   | Poids (kg) | Statut |
+| -------- | ---------- | ------ |
+| Client A | 10         | ✔      |
+| Client B | 10         | ❌      |
+
+* possibilité d’ajouter/supprimer un client
+* le poids total des clients doit être égal au poids du colis
+
+---
+
+## 2.2 RÈGLES IMPORTANTES
+
+* La somme des poids attribués doit être égale au poids du colis
+* Un colis individuel = 1 seul client
+* Un colis mixte = plusieurs clients
+* Empêcher les incohérences de saisie
+
+---
+
+## 2.3 STATUT
+
+* Ajouter un statut pour chaque client :
+
+  * payé
+  * non payé
+
+---
+
+## 2.4 CALCULS AUTOMATIQUES
+
+* Calcul du montant selon le poids
+* Calcul du poids restant dans un colis mixte
+* Calcul du total par client
+
+---
+
+## 3. STRUCTURE BASE DE DONNÉES (CORRIGER SI NÉCESSAIRE)
+
+### Table `arrivages`
+
+* id
+* date
+
+### Table `colis`
+
+* id
+* code_colis
+* poids_total
+* type (individuel / mixte)
+* transitaire_id
+* arrivage_id
+
+### Table `repartitions`
+
+* id
+* colis_id
+* client_id
+* poids
+* montant
+* statut (0 = non payé, 1 = payé)
+
+---
+
+## 4. UX / INTERFACE
+
+* Interface claire, simple, proche du fonctionnement papier
+* Ajout dynamique des champs
+* Aucun rechargement de page (AJAX recommandé)
+* Boutons :
+
+  * Ajouter transitaire
+  * Ajouter client
+  * Supprimer ligne
+
+---
+
+## 5. OBJECTIF FINAL
+
+Le système doit permettre de :
+
+* enregistrer tous les arrivages en une seule fois
+* visualiser les colis par transitaire
+* répartir chaque colis entre clients
+* suivre les paiements
+* éviter toute duplication ou erreur
+
+---
+
+## CONTRAINTE IMPORTANTE
+
+👉 Le système doit être basé sur le fonctionnement réel montré sur papier :
+
+* logique simple
+* structure claire
+* séparation ARRIVAGE / PARTAGE
+
+---
+
+## LIVRABLE ATTENDU
+
+* Code corrigé et fonctionnel
+* Base de données cohérente
+* Interface claire et intuitive
+* Code structuré et maintenable
