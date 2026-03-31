@@ -69,8 +69,8 @@ a { color: inherit; text-decoration: none; }
     border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.sidebar-header i { font-size: 22px; color: var(--primary-light); }
-.brand-text strong { color: var(--primary-light); }
+
+.brand-text strong { color: #02062f; }
 
 .sidebar-nav { flex: 1; padding: 12px 0; }
 .sidebar-nav ul { list-style: none; }
@@ -268,11 +268,7 @@ a { color: inherit; text-decoration: none; }
 
 .stat-card:hover { box-shadow: var(--shadow-md); }
 
-.stat-card.blue   { border-left-color: var(--primary); }
-.stat-card.green  { border-left-color: var(--success); }
-.stat-card.orange { border-left-color: var(--warning); }
-.stat-card.red    { border-left-color: var(--danger); }
-.stat-card.info   { border-left-color: var(--info); }
+
 
 .stat-icon {
     width: 44px; height: 44px;

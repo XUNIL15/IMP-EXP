@@ -54,18 +54,31 @@ $hasBg   = file_exists($loginBg);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             display: flex;
-            background: #f7f3ec;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            background: #ffffff;
         }
 
-        /* ── LEFT PANEL ── */
+        /* ── CARD WRAPPER ── */
+        .lp-card {
+            display: flex;
+            width: 50%;
+            max-width: 900px;
+            max-height: 500px;
+            min-height: 200px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, .22), 0 8px 24px rgba(0, 0, 0, .12);
+        }
+
+        /* ── LEFT: FORM PANEL ── */
         .lp-left {
-            flex: 0 0 50%;
-            min-height: 100vh;
+            flex: 0 0 48%;
             display: flex;
             flex-direction: column;
-            padding: 36px 56px 36px 52px;
-            background: linear-gradient(150deg, #fffdf7 0%, #fdf5e0 50%, #f7ecce 100%);
-            position: relative;
+            padding: 36px 44px 32px 44px;
+            background: #91a3ec;
         }
 
         /* Brand pill */
@@ -75,63 +88,56 @@ $hasBg   = file_exists($loginBg);
             gap: 8px;
             border: 2px solid #1a1a1a;
             border-radius: 50px;
-            padding: 7px 20px;
-            font-size: 15px;
+            padding: 6px 18px;
+            font-size: 14px;
             font-weight: 700;
             color: #1a1a1a;
             width: fit-content;
-            letter-spacing: .1px;
+            margin-bottom: 32px;
         }
 
-        .lp-brand i { font-size: 16px; color: #c9a84c; }
+        
+        .lp-brand i { font-size: 15px; color: #c9a84c; }
 
-        /* Form area */
-        .lp-form-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-bottom: 24px;
-            max-width: 380px;
-        }
-
+        /* Titles */
         .lp-title {
-            font-size: 30px;
+            font-size: 26px;
             font-weight: 800;
             color: #111;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             line-height: 1.2;
         }
 
         .lp-subtitle {
-            font-size: 14px;
-            color: #9a8e7e;
-            margin-bottom: 38px;
+            font-size: 13px;
+            color: #ffffff;
+            margin-bottom: 28px;
             line-height: 1.5;
         }
 
-        /* Field */
-        .lp-field { margin-bottom: 20px; }
+        /* Fields */
+        .lp-field { margin-bottom: 16px; }
 
         .lp-label {
             display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #aea197;
-            margin-bottom: 7px;
+            font-size: 11.5px;
+            font-weight: 900;
+            color: #0d0247;
+            margin-bottom: 6px;
             letter-spacing: .3px;
+            text-transform: uppercase;
         }
 
         .lp-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 13px 16px;
             background: #fff;
             border: 1.5px solid transparent;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 14px;
             font-family: inherit;
             color: #1a1a1a;
-            box-shadow: 0 2px 10px rgba(0,0,0,.07);
+            box-shadow: 0 2px 8px rgba(0,0,0,.07);
             transition: border-color .2s, box-shadow .2s;
             outline: none;
         }
@@ -140,24 +146,23 @@ $hasBg   = file_exists($loginBg);
 
         .lp-input:focus {
             border-color: #e8c040;
-            box-shadow: 0 0 0 3px rgba(232,192,64,.2), 0 2px 10px rgba(0,0,0,.07);
+            box-shadow: 0 0 0 3px rgba(232,192,64,.18), 0 2px 8px rgba(0,0,0,.07);
         }
 
         /* Password toggle */
         .lp-pwd-wrap { position: relative; }
-
-        .lp-pwd-wrap .lp-input { padding-right: 48px; }
+        .lp-pwd-wrap .lp-input { padding-right: 46px; }
 
         .lp-pwd-toggle {
             position: absolute;
-            right: 14px;
+            right: 13px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
             cursor: pointer;
             color: #bdb3a8;
-            font-size: 15px;
+            font-size: 14px;
             transition: color .15s;
             padding: 4px;
         }
@@ -172,42 +177,38 @@ $hasBg   = file_exists($loginBg);
             background: #fef2f2;
             color: #b91c1c;
             border: 1px solid #fecaca;
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-size: 13px;
-            margin-bottom: 22px;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 12.5px;
+            margin-bottom: 16px;
         }
 
-        /* Submit button */
+        /* Submit */
         .lp-submit {
             width: 100%;
-            padding: 16px;
-            background: #e9c13d;
+            padding: 14px;
+            background: #020c6a;
             border: none;
-            border-radius: 14px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: #ffffff;
             cursor: pointer;
-            margin-top: 6px;
+            margin-top: 4px;
             letter-spacing: .2px;
             transition: background .2s, transform .1s, box-shadow .2s;
-            box-shadow: 0 4px 16px rgba(233,193,61,.35);
+            box-shadow: 0 4px 14px rgba(1, 1, 1, 0.4);
         }
 
-        .lp-submit:hover {
-            background: #d4ac2a;
-            box-shadow: 0 6px 20px rgba(233,193,61,.45);
-        }
-
+        .lp-submit:hover { background: #010028; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5); }
         .lp-submit:active { transform: scale(.98); }
 
         /* Divider */
         .lp-divider {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin: 20px 0;
+            gap: 10px;
+            margin: 16px 0;
             color: #c5b9ac;
             font-size: 12px;
         }
@@ -224,54 +225,42 @@ $hasBg   = file_exists($loginBg);
         .lp-socials {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .lp-social-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 12px;
+            gap: 7px;
+            padding: 11px 10px;
             background: #fff;
             border: 1.5px solid #e4ddd4;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 600;
             color: #333;
-            cursor: default;
             box-shadow: 0 1px 4px rgba(0,0,0,.05);
         }
 
-        .lp-social-btn .fa-apple { font-size: 16px; }
-        .lp-social-btn .google-g {
-            width: 16px; height: 16px;
-            background: url('https://www.google.com/favicon.ico') center/contain no-repeat;
-            display: inline-block;
-        }
+        .lp-social-btn .fa-apple { font-size: 15px; }
 
         /* Setup link */
         .lp-setup {
             text-align: center;
-            margin-top: 22px;
+            margin-top: 18px;
             font-size: 12px;
-            color: #a89f93;
+            color: #010127;
         }
 
-        .lp-setup a {
-            color: #c9a84c;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
+        .lp-setup a { color: #ffffff; font-weight: 700; text-decoration: none; }
         .lp-setup a:hover { text-decoration: underline; }
 
-        /* ── RIGHT PANEL ── */
+        /* ── RIGHT: PHOTO PANEL ── */
         .lp-right {
             flex: 1;
             position: relative;
             overflow: hidden;
-            min-height: 100vh;
         }
 
         .lp-right img {
@@ -284,44 +273,40 @@ $hasBg   = file_exists($loginBg);
         .lp-right-placeholder {
             width: 100%;
             height: 100%;
-            min-height: 100vh;
             background: linear-gradient(145deg, #3a3028 0%, #1a1410 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
             color: rgba(255,255,255,.3);
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .lp-right-placeholder i { font-size: 52px; opacity: .25; }
-        .lp-right-placeholder small {
-            font-size: 11px;
-            opacity: .5;
-            font-family: monospace;
-        }
+        .lp-right-placeholder i { font-size: 44px; opacity: .2; }
+        .lp-right-placeholder small { font-size: 11px; opacity: .45; font-family: monospace; }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 860px) {
-            .lp-right { display: none; }
-            .lp-left  { flex: 1; padding: 32px 28px; }
-            .lp-form-area { max-width: 100%; }
+        @media (max-width: 720px) {
+            .lp-right  { display: none; }
+            .lp-left   { flex: 1; border-radius: 28px; padding: 32px 28px; }
+            .lp-card   { border-radius: 28px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ═══ LEFT: FORM ═══ -->
-    <div class="lp-left">
-        <div class="lp-brand">
-            <i class="fas fa-ship"></i>
-            Import<strong>Export</strong>
-        </div>
+    <div class="lp-card">
 
-        <div class="lp-form-area">
+        <!-- ═══ LEFT: FORM ═══ -->
+        <div class="lp-left">
+            <div class="lp-brand">
+                <i class="fa-solid fa-ship" style="color: rgb(3, 3, 74);"></i>
+                Import<strong>Export</strong>
+            </div>
+
             <h1 class="lp-title">Connexion</h1>
-            <p class="lp-subtitle">Connectez-vous pour accéder<br>au système de gestion</p>
+            <p class="lp-subtitle">Connectez-vous pour accéder au système de gestion</p>
 
             <?php if ($error): ?>
                 <div class="lp-error">
@@ -350,7 +335,7 @@ $hasBg   = file_exists($loginBg);
                             name="mot_de_passe"
                             id="loginPwd"
                             class="lp-input"
-                            placeholder="••••••••••••••••••"
+                            placeholder="••••••••••••••••"
                             required autocomplete="current-password">
                         <button type="button" class="lp-pwd-toggle" onclick="togglePwd()" tabindex="-1">
                             <i class="fas fa-eye-slash" id="eyeIcon"></i>
@@ -361,35 +346,23 @@ $hasBg   = file_exists($loginBg);
                 <button type="submit" class="lp-submit">Se connecter</button>
             </form>
 
-            <div class="lp-divider">ou</div>
-
-            <div class="lp-socials">
-                <div class="lp-social-btn">
-                    <i class="fab fa-apple"></i> Apple
-                </div>
-                <div class="lp-social-btn">
-                    <span class="google-g"></span> Google
-                </div>
-            </div>
-
             <div class="lp-setup">
-                Première installation ? <a href="setup.php">Créer le compte admin</a>
+                <span style="color: #ffffff; font-weight: 700;">Première installation ?</span> <a href="setup.php" style="color: #0c0137; font-weight: 700;">Créer le compte admin</a>
             </div>
         </div>
-    </div>
 
-    <!-- ═══ RIGHT: PHOTO ═══ -->
-    <div class="lp-right">
-        <?php if ($hasBg): ?>
-            <img src="<?= $loginBg ?>?v=<?= filemtime($loginBg) ?>" alt="">
-        <?php else: ?>
-            <div class="lp-right-placeholder">
-                <i class="fas fa-image"></i>
-                <span>Votre photo ici</span>
-                <small>Déposez votre image : images/login-bg.jpg</small>
-            </div>
-        <?php endif; ?>
-    </div>
+        <!-- ═══ RIGHT: PHOTO ═══ -->
+        <div class="lp-right">
+            <?php if ($hasBg): ?>
+                <img src="<?= $loginBg ?>?v=<?= filemtime($loginBg) ?>" alt="">
+            <?php else: ?>
+                <div class="lp-right-placeholder">
+                    <img src="images\global-logistics-international-shipping.jpg" alt="">
+                </div>
+            <?php endif; ?>
+        </div>
+
+    </div><!-- /.lp-card -->
 
     <script>
     function togglePwd() {

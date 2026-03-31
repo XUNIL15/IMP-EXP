@@ -20,7 +20,7 @@ $logoutUrl   = (isset($root) && $root === '../') ? '../logout.php' : 'logout.php
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <i class="fas fa-ship"></i>
+            <i class="fa-solid fa-ship" style="color: rgb(255, 255, 255);"></i>
             <span class="brand-text">Import<strong>Export</strong></span>
         </div>
         <nav class="sidebar-nav">

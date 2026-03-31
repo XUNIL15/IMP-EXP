@@ -1,0 +1,18 @@
+[startup] Starting MariaDB...
+[startup] Waiting for MariaDB to start...
+[startup] MariaDB ready after 2s
+[startup] Database 'import_export' already exists, skipping schema load.
+[startup] Starting PHP server on 0.0.0.0:5000...
+[Mon Mar 30 17:39:16 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Mon Mar 30 17:46:41 2026] 127.0.0.1:45986 Accepted
+[Mon Mar 30 17:46:41 2026] 127.0.0.1:45986 [302]: GET /
+[Mon Mar 30 17:46:41 2026] 127.0.0.1:45986 Closing
+[Mon Mar 30 17:46:41 2026] 127.0.0.1:46002 Accepted
+[Mon Mar 30 17:46:41 2026] 127.0.0.1:46002 [200]: GET /login.php
+[Mon Mar 30 17:46:41 2026] 127.0.0.1:46002 Closing
+[Mon Mar 30 17:46:46 2026] 127.0.0.1:52110 Accepted
+[Mon Mar 30 17:46:46 2026] 127.0.0.1:52110 [200]: GET /images/login-bg.jpg?v=1774891454
+[Mon Mar 30 17:46:46 2026] 127.0.0.1:52110 Closing
+[Mon Mar 30 17:46:46 2026] 127.0.0.1:52120 Accepted
+[Mon Mar 30 17:46:46 2026] 127.0.0.1:52120 [404]: GET /favicon.ico - No such file or directory
+[Mon Mar 30 17:46:46 2026] 127.0.0.1:52120 Closing
