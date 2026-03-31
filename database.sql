@@ -35,26 +35,28 @@ CREATE TABLE IF NOT EXISTS clients (
 
 -- ============================================================
 -- TABLE : arrivages
+-- Un arrivage = une journée de réception (plusieurs transitaires possibles)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS arrivages (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    transitaire_id INT NOT NULL,
+    transitaire_id INT NULL,
     date_arrivee DATE NOT NULL,
     nb_colis_total INT NOT NULL DEFAULT 0,
     poids_total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     cout_total DECIMAL(15,2) NOT NULL DEFAULT 0.00,
     devise ENUM('FCFA','EUR','USD') DEFAULT 'FCFA',
     notes TEXT,
-    date_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (transitaire_id) REFERENCES transitaires(id) ON DELETE RESTRICT
+    date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
 -- TABLE : colis
+-- Chaque colis est lié à un arrivage ET à un transitaire
 -- ============================================================
 CREATE TABLE IF NOT EXISTS colis (
     id INT AUTO_INCREMENT PRIMARY KEY,
     arrivage_id INT NOT NULL,
+    transitaire_id INT NULL,
     code_reel VARCHAR(50) NOT NULL,
     code_complet VARCHAR(80) NOT NULL UNIQUE,
     type ENUM('individuel','mixte') NOT NULL DEFAULT 'individuel',
@@ -62,8 +64,29 @@ CREATE TABLE IF NOT EXISTS colis (
     montant DECIMAL(15,2) NOT NULL DEFAULT 0.00,
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (arrivage_id) REFERENCES arrivages(id) ON DELETE CASCADE,
+    FOREIGN KEY (transitaire_id) REFERENCES transitaires(id) ON DELETE SET NULL,
     INDEX idx_arrivage (arrivage_id),
+    INDEX idx_transitaire (transitaire_id),
     INDEX idx_code_complet (code_complet)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
+-- TABLE : repartitions
+-- Répartition de chaque colis entre un ou plusieurs clients
+-- ============================================================
+CREATE TABLE IF NOT EXISTS repartitions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    colis_id INT NOT NULL,
+    client_id INT NOT NULL,
+    poids DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    montant DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+    statut TINYINT(1) NOT NULL DEFAULT 0,
+    date_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (colis_id) REFERENCES colis(id) ON DELETE CASCADE,
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE RESTRICT,
+    UNIQUE KEY unique_colis_client (colis_id, client_id),
+    INDEX idx_colis (colis_id),
+    INDEX idx_client (client_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================

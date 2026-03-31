@@ -40,9 +40,9 @@ $logoutUrl   = (isset($root) && $root === '../') ? '../logout.php' : 'logout.php
                     </a>
                 </li>
                 <li>
-                    <a href="<?= $root ?? '' ?>pages/colis.php" class="<?= (isset($activePage) && $activePage === 'colis') ? 'active' : '' ?>">
-                        <i class="fas fa-boxes"></i>
-                        <span>Colis</span>
+                    <a href="<?= $root ?? '' ?>pages/partage.php" class="<?= (isset($activePage) && $activePage === 'partage') ? 'active' : '' ?>">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Partage des colis</span>
                     </a>
                 </li>
                 <li>

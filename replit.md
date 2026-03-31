@@ -22,8 +22,8 @@ A web-based import/export shipment management system for tracking arrivages (shi
 - `index.php` — Main dashboard
 - `login.php` / `logout.php` — Authentication
 - `setup.php` — Initial admin user creation
-- `pages/` — Feature modules (arrivages, colis, clients, paiements, rapports, etc.)
-- `api/` — PHP API endpoints for live search and data lookups
+- `pages/` — Feature modules (arrivages, partage, clients, paiements, rapports, etc.)
+- `api/` — PHP API endpoints: `save_arrivage.php` (AJAX), `repartitions.php` (AJAX), `colis_arrivage.php`, `clients_search.php`, `colis_info.php`, `proprietaires.php`
 
 ## Database
 
@@ -50,12 +50,19 @@ After starting, visit `/setup.php` to create the initial admin account.
 - **Target:** VM (always running, needed for persistent MariaDB process)
 - **Run command:** `bash /home/runner/workspace/start.sh`
 
+## Database Schema (key tables)
+
+- `arrivages` — One record per day of reception; `transitaire_id` is now nullable (multiple transitaires per arrivage)
+- `colis` — Each package has its own `transitaire_id`; linked to an arrivage
+- `repartitions` — New table: package-to-client assignments (replaces the role of `colis_proprietaires` for the partage module)
+- `colis_proprietaires` — Legacy table kept for paiements/dettes/bilan backward compat
+
 ## Features
 
 - Dashboard with charts (daily packages, revenue)
-- Shipment management (arrivages)
-- Package tracking (colis — individual and mixed)
-- Client management
+- **Arrivages** — Create one entry per day with multiple transitaires + colis in a single AJAX form
+- **Partage des colis** — Assign existing colis from arrivages to clients (individual = 1 client; mixed = multiple clients with poids validation)
+- Client & Transitaire management
 - Payment processing with automatic status updates
 - Reports: daily balance, debt tracking, CSV/PDF export
 - Role-based access (admin / gestionnaire)
