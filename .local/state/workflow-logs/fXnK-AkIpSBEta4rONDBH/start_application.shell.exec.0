@@ -1,0 +1,30 @@
+[startup] Starting MariaDB...
+[startup] Waiting for MariaDB to start...
+[startup] MariaDB ready after 2s
+[startup] Database 'import_export' already exists, skipping schema load.
+[startup] Starting PHP server on 0.0.0.0:5000...
+[Mon Mar 30 17:49:10 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Mon Mar 30 17:49:15 2026] 127.0.0.1:49414 Accepted
+[Mon Mar 30 17:49:15 2026] 127.0.0.1:49414 [302]: GET /
+[Mon Mar 30 17:49:15 2026] 127.0.0.1:49414 Closing
+[Mon Mar 30 17:49:15 2026] 127.0.0.1:49422 Accepted
+[Mon Mar 30 17:49:15 2026] 127.0.0.1:49422 [200]: GET /login.php
+[Mon Mar 30 17:49:15 2026] 127.0.0.1:49422 Closing
+[Mon Mar 30 17:49:31 2026] 127.0.0.1:46434 Accepted
+[Mon Mar 30 17:49:31 2026] 127.0.0.1:46434 [200]: GET /setup.php
+[Mon Mar 30 17:49:31 2026] 127.0.0.1:46434 Closing
+[Mon Mar 30 17:49:31 2026] 127.0.0.1:46438 Accepted
+[Mon Mar 30 17:49:31 2026] 127.0.0.1:46438 [200]: GET /css/style.css
+[Mon Mar 30 17:49:31 2026] 127.0.0.1:46438 Closing
+[Mon Mar 30 17:50:05 2026] 127.0.0.1:46602 Accepted
+[Mon Mar 30 17:50:05 2026] 127.0.0.1:46602 [302]: POST /login.php
+[Mon Mar 30 17:50:05 2026] 127.0.0.1:46602 Closing
+[Mon Mar 30 17:50:05 2026] 127.0.0.1:46610 Accepted
+[Mon Mar 30 17:50:05 2026] 127.0.0.1:46610 [200]: POST /index.php
+[Mon Mar 30 17:50:05 2026] 127.0.0.1:46610 Closing
+[Mon Mar 30 17:50:14 2026] 127.0.0.1:57840 Accepted
+[Mon Mar 30 17:50:14 2026] 127.0.0.1:57840 [302]: GET /
+[Mon Mar 30 17:50:14 2026] 127.0.0.1:57840 Closing
+[Mon Mar 30 17:50:14 2026] 127.0.0.1:57844 Accepted
+[Mon Mar 30 17:50:14 2026] 127.0.0.1:57844 [200]: GET /login.php
+[Mon Mar 30 17:50:14 2026] 127.0.0.1:57844 Closing

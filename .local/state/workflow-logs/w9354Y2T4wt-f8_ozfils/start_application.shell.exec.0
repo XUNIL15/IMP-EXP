@@ -1,0 +1,75 @@
+[startup] Starting MariaDB...
+[startup] Waiting for MariaDB to start...
+[startup] MariaDB ready after 2s
+[startup] Database 'import_export' already exists, skipping schema load.
+[startup] Starting PHP server on 0.0.0.0:5000...
+[Tue Mar 31 17:51:44 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Tue Mar 31 17:51:45 2026] 127.0.0.1:43114 Accepted
+[Tue Mar 31 17:51:45 2026] 127.0.0.1:43114 [302]: GET /
+[Tue Mar 31 17:51:45 2026] 127.0.0.1:43114 Closing
+[Tue Mar 31 17:51:45 2026] 127.0.0.1:43126 Accepted
+[Tue Mar 31 17:51:45 2026] 127.0.0.1:43126 [200]: GET /login.php
+[Tue Mar 31 17:51:45 2026] 127.0.0.1:43126 Closing
+[Tue Mar 31 17:51:46 2026] 172.31.64.130:56168 Accepted
+[Tue Mar 31 17:51:46 2026] 172.31.64.130:56168 [302]: GET /
+[Tue Mar 31 17:51:46 2026] 172.31.64.130:56168 Closing
+[Tue Mar 31 17:51:46 2026] 172.31.64.130:56180 Accepted
+[Tue Mar 31 17:51:46 2026] 172.31.64.130:56180 [200]: GET /login.php
+[Tue Mar 31 17:51:46 2026] 172.31.64.130:56180 Closing
+[Tue Mar 31 17:51:47 2026] 172.31.64.130:56192 Accepted
+[Tue Mar 31 17:51:47 2026] 172.31.64.130:56192 [200]: GET /images/global-logistics-international-shipping.jpg
+[Tue Mar 31 17:51:50 2026] 127.0.0.1:55056 Accepted
+[Tue Mar 31 17:51:50 2026] 127.0.0.1:55056 [200]: GET /images/global-logistics-international-shipping.jpg
+[Tue Mar 31 17:51:50 2026] 127.0.0.1:55056 Closing
+[Tue Mar 31 17:51:50 2026] 127.0.0.1:55060 Accepted
+[Tue Mar 31 17:51:50 2026] 127.0.0.1:55060 [404]: GET /favicon.ico - No such file or directory
+[Tue Mar 31 17:51:50 2026] 127.0.0.1:55060 Closing
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55064 Accepted
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55064 [302]: GET /pages/arrivages.php
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55064 Closing
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55068 Accepted
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55068 [200]: GET /login.php
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55068 Closing
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55072 Accepted
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55072 [200]: GET /images/global-logistics-international-shipping.jpg
+[Tue Mar 31 17:51:56 2026] 127.0.0.1:55072 Closing
+[Tue Mar 31 17:52:02 2026] 172.31.64.130:56192 Closing
+[Tue Mar 31 17:52:36 2026] 127.0.0.1:57768 Accepted
+[Tue Mar 31 17:52:36 2026] 127.0.0.1:57768 [200]: POST /login.php
+[Tue Mar 31 17:52:36 2026] 127.0.0.1:57768 Closing
+[Tue Mar 31 17:52:36 2026] 127.0.0.1:57780 Accepted
+[Tue Mar 31 17:52:36 2026] 127.0.0.1:57780 [302]: GET /pages/arrivages.php
+[Tue Mar 31 17:52:36 2026] 127.0.0.1:57780 Closing
+[Tue Mar 31 17:52:49 2026] 127.0.0.1:52710 Accepted
+[Tue Mar 31 17:52:49 2026] 127.0.0.1:52710 [302]: POST /login.php
+[Tue Mar 31 17:52:49 2026] 127.0.0.1:52710 Closing
+[Tue Mar 31 17:52:49 2026] 127.0.0.1:52718 Accepted
+[Tue Mar 31 17:52:49 2026] 127.0.0.1:52718 [200]: GET /pages/arrivages.php
+[Tue Mar 31 17:52:49 2026] 127.0.0.1:52718 Closing
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52730 Accepted
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52730 [200]: GET /pages/partage.php
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52730 Closing
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52742 Accepted
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52742 [200]: GET /api/colis_arrivage.php?arrivage_id=1
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52742 Closing
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52756 Accepted
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52756 [200]: GET /api/repartitions.php?colis_id=2
+[Tue Mar 31 17:52:57 2026] 127.0.0.1:52756 Closing
+[Tue Mar 31 17:53:05 2026] 127.0.0.1:34486 Accepted
+[Tue Mar 31 17:53:05 2026] 127.0.0.1:34486 [200]: POST /api/save_arrivage.php
+[Tue Mar 31 17:53:05 2026] 127.0.0.1:34486 Closing
+[Tue Mar 31 17:53:11 2026] 127.0.0.1:53490 Accepted
+[Tue Mar 31 17:53:11 2026] 127.0.0.1:53490 [500]: POST /api/save_arrivage.php
+[Tue Mar 31 17:53:11 2026] 127.0.0.1:53490 Closing
+[Tue Mar 31 17:53:21 2026] 127.0.0.1:45228 Accepted
+[Tue Mar 31 17:53:22 2026] 127.0.0.1:45228 [200]: POST /api/save_arrivage.php
+[Tue Mar 31 17:53:22 2026] 127.0.0.1:45228 Closing
+[Tue Mar 31 17:53:33 2026] 127.0.0.1:36568 Accepted
+[Tue Mar 31 17:53:33 2026] 127.0.0.1:36568 [200]: POST /api/repartitions.php
+[Tue Mar 31 17:53:33 2026] 127.0.0.1:36568 Closing
+[Tue Mar 31 17:53:43 2026] 127.0.0.1:55012 Accepted
+[Tue Mar 31 17:53:43 2026] 127.0.0.1:55012 [200]: GET /pages/arrivages.php
+[Tue Mar 31 17:53:43 2026] 127.0.0.1:55012 Closing
+[Tue Mar 31 17:53:43 2026] 127.0.0.1:55016 Accepted
+[Tue Mar 31 17:53:43 2026] 127.0.0.1:55016 [200]: GET /pages/partage.php
+[Tue Mar 31 17:53:43 2026] 127.0.0.1:55016 Closing

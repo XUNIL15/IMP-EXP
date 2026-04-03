@@ -46,6 +46,12 @@ $logoutUrl   = (isset($root) && $root === '../') ? '../logout.php' : 'logout.php
                     </a>
                 </li>
                 <li>
+                    <a href="<?= $root ?? '' ?>pages/fiche.php" class="<?= (isset($activePage) && $activePage === 'fiche') ? 'active' : '' ?>">
+                        <i class="fas fa-table"></i>
+                        <span>Fiche par transitaire</span>
+                    </a>
+                </li>
+                <li>
                     <a href="<?= $root ?? '' ?>pages/paiements.php" class="<?= (isset($activePage) && $activePage === 'paiements') ? 'active' : '' ?>">
                         <i class="fas fa-money-bill-wave"></i>
                         <span>Paiements</span>

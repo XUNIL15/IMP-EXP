@@ -1,0 +1,28 @@
+[startup] Starting MariaDB...
+[startup] Waiting for MariaDB to start...
+[startup] MariaDB ready after 2s
+[startup] Loading database schema...
+[startup] Database schema loaded successfully.
+[startup] Starting PHP server on 0.0.0.0:5000...
+[Tue Mar 31 17:44:21 2026] PHP 8.2.23 Development Server (http://0.0.0.0:5000) started
+[Tue Mar 31 17:44:23 2026] 172.31.64.130:50244 Accepted
+[Tue Mar 31 17:44:23 2026] 172.31.64.130:50244 [302]: GET /
+[Tue Mar 31 17:44:23 2026] 172.31.64.130:50244 Closing
+[Tue Mar 31 17:44:23 2026] 172.31.64.130:50260 Accepted
+[Tue Mar 31 17:44:23 2026] 172.31.64.130:50260 [200]: GET /login.php
+[Tue Mar 31 17:44:23 2026] 172.31.64.130:50260 Closing
+[Tue Mar 31 17:44:24 2026] 172.31.64.130:50262 Accepted
+[Tue Mar 31 17:44:24 2026] 172.31.64.130:50262 [200]: GET /images/global-logistics-international-shipping.jpg
+[Tue Mar 31 17:44:24 2026] 172.31.64.130:50262 Closing
+[Tue Mar 31 17:44:51 2026] 127.0.0.1:55348 Accepted
+[Tue Mar 31 17:44:51 2026] 127.0.0.1:55348 [302]: GET /
+[Tue Mar 31 17:44:51 2026] 127.0.0.1:55348 Closing
+[Tue Mar 31 17:44:51 2026] 127.0.0.1:55358 Accepted
+[Tue Mar 31 17:44:51 2026] 127.0.0.1:55358 [200]: GET /login.php
+[Tue Mar 31 17:44:51 2026] 127.0.0.1:55358 Closing
+[Tue Mar 31 17:44:57 2026] 127.0.0.1:55368 Accepted
+[Tue Mar 31 17:44:57 2026] 127.0.0.1:55368 [200]: GET /images/global-logistics-international-shipping.jpg
+[Tue Mar 31 17:44:57 2026] 127.0.0.1:55368 Closing
+[Tue Mar 31 17:44:58 2026] 127.0.0.1:52868 Accepted
+[Tue Mar 31 17:44:58 2026] 127.0.0.1:52868 [404]: GET /favicon.ico - No such file or directory
+[Tue Mar 31 17:44:58 2026] 127.0.0.1:52868 Closing
